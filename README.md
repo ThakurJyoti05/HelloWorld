@@ -110,38 +110,14 @@ npm init => to create a pakage.json file
 npm install => to create a package.json.lock file
 ```
 
-### E. Dockerize your applciation
-```bash
-# Use an official Node.js runtime as the base image
-FROM node:16-alpine
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
-
-# Copy the application files to the container
-COPY . .
-
-# Expose the port on which your Node.js app will run
-EXPOSE 3000
-
-# Command to run your Node.js application
-CMD ["node", "app.js"]
-```
-
-Create the docker image from the dockerfile and run the container
-```bash
-docker build -t app .
-docker run -d -p 3000:3000 app
-```
-test the app on localhost:3000
-
-### F. Push the code on github
+### E. Push the code on github
 1. create a new repo on github with name: "HelloWorld"
 2. On your local machine in project folder give the following commands
   ```bash 
   > git init
   > git branch -M main
-  > git remote add origin https://github.com/vishal-meshram/HelloWorld.git
+  > git remote add origin https://github.com/ThakurJyoti05/HelloWorld.git
   > git push -u origin main 
 
 ### G. Git comamnds on local machine for branch sync
