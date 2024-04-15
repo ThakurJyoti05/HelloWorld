@@ -120,7 +120,7 @@ npm install => to create a package.json.lock file
   > git remote add origin https://github.com/ThakurJyoti05/HelloWorld.git
   > git push -u origin main 
 
-### G. Git comamnds on local machine for branch sync
+### f. Git commands on local machine for branch sync
 ```bash
 git checkout main
 git pull --rebase
