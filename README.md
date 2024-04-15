@@ -1,10 +1,10 @@
 # Problem Statement:
-1. Create a HelloWorld app in NodeJs and push the code on github.
-2. Setup the secure infrastructure for the App on AWS and host that app on Infrastructure.
-3. Setup Ngnix to serve the application on port 80.
-4. Install the SSL certificate from Lets Encrypt on the app and use the domain name "yourname".signiance.com. You can share the endpoint of your server or loadbalancer with me during review and I will map it with the domain.
-5. Create a CI/CD pipleine for the app using tools of your choice.
-6. It shouild build and deploy the code on push.
+1. Create a HelloWorld app in NodeJs and push the code on Git Hub.
+2. Set up the secure infrastructure for the App on AWS and host that app on Infrastructure.
+3. Set up Ngnix to serve the application on port 80.
+4. Install the SSL certificate from Lets Encrypt on the app and use the domain name "your name".signiance.com. You can share the endpoint of your server or load balancer with me during review and I will map it with the domain.
+5. Create a CI/CD pipeline for the app using tools of your choice.
+6. It should build and deploy the code on push.
 7. Changes should be visible on the above URL.
 8. Document the assignment and share your learning.
 
@@ -14,7 +14,7 @@
 ## Step 1. Create a HelloWorld app in NodeJS.
 ### A: Update Package Index and install Nodejs and npm
 
-First, update the package and install the latest versions of packages.
+First, update the package and install the latest versions of the packages.
 
 ```bash
 sudo apt update
@@ -111,16 +111,16 @@ npm install => to create a package.json.lock file
 ```
 
 
-### E. Push the code on github
-1. create a new repo on github with name: "HelloWorld"
-2. On your local machine in project folder give the following commands
+### E. Push the code on GitHub
+1. create a new repo on GitHub with the name: "HelloWorld"
+2. On your local machine in the project folder give the following commands
   ```bash 
   > git init
   > git branch -M main
   > git remote add origin https://github.com/ThakurJyoti05/HelloWorld.git
   > git push -u origin main 
 
-### f. Git commands on local machine for branch sync
+### f. Git commands on the local machine for branch sync
 ```bash
 git checkout main
 git pull --rebase
@@ -128,18 +128,18 @@ git rebase main
 git push -f origin <my_branch>
 ```
 
-## Step 2: Setup the secure infrastructure for the App on AWS and host that app on Infrastructure.
-### For secure infrastructure we will create own VPC, IGW, RT, Subnets, ALB and use 
+## Step 2: Set up the secure infrastructure for the App on AWS and host that app on Infrastructure.
+### For secure infrastructure we will create our own VPC, IGW, RT, Subnets and ALB and use 
 1. Create a VPC with CIDR: 10.0.0.0/16
 2. Create a two subnets: az1a: 10.0.1.0/24  and az1b: 10.0.2.0/24
-3. Create a IGW
-4. Create a Route tables -> Edit subnet association and Add rule
-5. Create a Security Group: allow 80 and 443 and 22
+3. Create an IGW
+4. Create a Route table -> Edit subnet association and Add rule
+5. Create a Security Group: allow 80, 443 and 22
 6. Create a Ec2 instance -> ubuntu -> Network (Select Node-project-VPC) -> select AZ1 (subnet01) -> enable elastic IP -> add SG (http and https) 
 7. Create a Target group
 8. Create a Load balancer
 
-please run following commands on  ec2 instance:
+please run the following commands on  the ec2 instance:
 ```bash
 sudo -i
 sudo apt update
@@ -165,14 +165,14 @@ npm -v
 systemctl status nginx
 ```
 
-### Step 3: Create a CI/CD pipleine for the app using tools of your choice. 
-#### Here, we are using Git Actions to setup CI/CD pipleine
-1. Go to your github repo -> click on "Action"
-2. Select Continious Integration -> Node js
+### Step 3: Create a CI/CD pipeline for the app using the tools of your choice. 
+#### Here, we are using Git Actions to set the CI/CD pipeline
+1. Go to your GitHub repo -> click on "Action"
+2. Select Continuous Integration -> Node js
 3. It will create a file as -> .github/workflows/node.js.yml
-4. do changes in the node.js.yml file  a) remove pull , b) add self-hosted insted ubuntu-hosted c) remove last 2 instructions
-5. Now we need to add runner. go to settings -> Actions -> Runners -> new self-hosted runner [select linux -> x86]
-6. Copy each step and run on ec2 ubuntu server
+4. do changes in the node.js.yml file  a) remove pull, b) add self-hosted instead of ubuntu-hosted c) remove the last 2 instructions
+5. Now we need to add a runner. go to settings -> Actions -> Runners -> new self-hosted runner [select Linux -> x86]
+6. Copy each step and run it on the EC2 Ubuntu server
 7. then finally give the following commands
    ```bash
     sudo ./svc.sh install
@@ -180,7 +180,7 @@ systemctl status nginx
   ```
   this will create a _work folder
 
-  8. install pm2 for prodcution server
+  8. install pm2 for the production server
   ```bash
   sudo npm install pm2@latest -g
   OR
@@ -190,16 +190,16 @@ systemctl status nginx
    ```bash
    > pm2
    ```
-  10. now lets configure NGINX server
+  10. now let's configure the NGINX server
   ```bash
   sudo nano /etc/nginx/sites-available/default
   ```
   Inside the server block, add a location block to proxy requests to your Node.js application running on port 3000:
-  make the following changes into default file:
+  make the following changes to the default file:
   ``` bash
   server {
     listen 80;
-    server_name <loadbalancer dns> http://helloworld-alb-44359135.ap-south-1.elb.amazonaws.com/;  # Replace with your domain name or server IP
+    server_name Node-ALB-1880869056.us-east-1.elb.amazonaws.com;  # Replace with your domain name or server IP
 
     location / {
         proxy_pass http://localhost:3000;  # Forward traffic to Node.js app running on port 3000
@@ -228,10 +228,10 @@ go to project dir:
 cd ~/actions-runner/_work/HelloWorld/HelloWorld/
 pm2 start app.js --name="backend"
 ```
-## Now complete the CI/CD pipleine 
-goto your Gitrepo project: and add command in this file: .github/workflows/node.js.yml
+## Now complete the CI/CD pipeline 
+goto your Gitrepo project: and add the command in this file: .github/workflows/node.js.yml
 ```bash
- # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+ # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of the node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: Node.js CI
@@ -260,14 +260,14 @@ jobs:
     - run: npm ci
     - run: pm2 restart backend
     ```
-On lyour lcoal machine now run following commands
+On your local machine now run the following commands
 ```bash
 git checkout main
 git pull --rebase
 git rebase main
 git push -u origin main
 ```
-Now, if you made any changes in the code and push to GitHub repo they will be automatically reflected..
+Now, if you make any changes in the code and push to the GitHub repo they will be automatically reflected..
 
 
 ## ADD SSL with lets-encrypt
